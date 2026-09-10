@@ -1,0 +1,63 @@
+@startuml pc-builder-uml
+
+abstract class ComputerBuilder {
+  # String cpu
+  # String ram
+  # String storage
+  # String gpu
+  # String powerSupply
+  # String coolingSystem
+  + setCPU(String) : ComputerBuilder
+  + setRAM(String) : ComputerBuilder
+  + setStorage(String) : ComputerBuilder
+  + setGPU(String) : ComputerBuilder
+  + setPowerSupply(String) : ComputerBuilder
+  + setCoolingSystem(String) : ComputerBuilder
+  # validateCommon() : void
+  # {abstract} validateSpecific() : void
+  + {abstract} build() : Computer
+}
+
+class GamingPCBuilder extends ComputerBuilder {
+  + build() : Computer
+  # validateSpecific() : void
+}
+
+class OfficePCBuilder extends ComputerBuilder {
+  + build() : Computer
+  # validateSpecific() : void
+}
+
+class Computer {
+  - String cpu
+  - String ram
+  - String storage
+  - String gpu
+  - String powerSupply
+  - String coolingSystem
+  + getCpu() : String
+  + getRam() : String
+  + getStorage() : String
+  + getGpu() : String
+  + getPowerSupply() : String
+  + getCoolingSystem() : String
+}
+
+class PCDirector {
+  + buildBudgetGamingPC(ComputerBuilder) : Computer
+  + buildHighEndGamingPC(ComputerBuilder) : Computer
+  + buildStandardOfficePC(ComputerBuilder) : Computer
+}
+
+class Main {
+  + {static} main(String[]) : void
+}
+
+ComputerBuilder <|-- GamingPCBuilder
+ComputerBuilder <|-- OfficePCBuilder
+ComputerBuilder ..> Computer : creates
+PCDirector ..> ComputerBuilder : uses
+Main ..> PCDirector : uses
+Main ..> ComputerBuilder : uses
+
+@enduml
