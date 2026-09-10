@@ -19,7 +19,7 @@ public abstract class ComputerBuilder {
         return this;
     }
 
-    public ComputerBuilder setStorage(String storag){
+    public ComputerBuilder setStorage(String storage){
         this.storage = storage;
         return this;
     }
@@ -40,22 +40,21 @@ public abstract class ComputerBuilder {
     }
 
     protected final void validateCommon(){
-        requireNonBLank(cpu, "SPU");
-        requireNonBLank(ram, "RAM");
-        requireNonBLank(storage, "Storage");
-        requireNonBLank(powerSupply, "Power supply");
-        requireNonBLank(coolingSystem, "Cooling system");
+        requireNonBlank(cpu, "SPU");
+        requireNonBlank(ram, "RAM");
+        requireNonBlank(storage, "Storage");
+        requireNonBlank(powerSupply, "Power supply");
+        requireNonBlank(coolingSystem, "Cooling system");
 
     }
 
-    protected final void requireNonBLank(String value, String fieldName){
+    protected final void requireNonBlank(String value, String fieldName){
         if (value == null || value.isBlank()){
-            throw new IllegalArgumentException(fieldName + " must be set before calling build()");
-        }
+            throw new IllegalStateException(fieldName + " must be set before calling build()");        }
     }
 
     protected abstract void validateSpecific();
 
-    public abstract Computer biuld();
+    public abstract Computer build();
 
 }

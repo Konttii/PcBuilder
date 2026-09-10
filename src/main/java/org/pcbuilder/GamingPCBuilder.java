@@ -2,11 +2,11 @@ package org.pcbuilder;
 
 public class GamingPCBuilder extends ComputerBuilder {
     private static final String DEFAULT_GPU = "NVIDIA RTX 4050";
-    private static final String DEFAULT_COOLING = "Liquid Colling";
-    private static final String DEFAULT_PSU = "850w Cold";
+    private static final String DEFAULT_COOLING = "Liquid Cooling";
+    private static final String DEFAULT_PSU = "850W Gold";
     private static final String NO_GPU = "Integrated Graphics";
 
-    @Override
+
     public Computer build(){
         applyDefaults();
         validateCommon();

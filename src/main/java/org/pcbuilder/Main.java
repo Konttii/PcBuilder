@@ -1,17 +1,41 @@
 package org.pcbuilder;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+    public static void main(String[] args) {
+        PCDirector director = new PCDirector();
+
+        Computer budgetGaming = director.buildBudgetGamingPC(new GamingPCBuilder());
+        System.out.println("Budget gaming PC: " + budgetGaming);
+
+        Computer highEndGaming = director.buildHighEndGamingPC(new GamingPCBuilder());
+        System.out.println("High-end gaming PC: " + highEndGaming);
+
+        Computer office = director.buildStandardOfficePC(new OfficePCBuilder());
+        System.out.println("Standard office PC: " + office);
+
+        Computer customOffice = new OfficePCBuilder()
+                .setCPU("Intel Core i5-14400")
+                .setRAM("16GB DDR4")
+                .setStorage("512GB SSD")
+                .setPowerSupply("400W Bronze")
+                .build();
+        System.out.println("Custom office PC: " + customOffice);
+
+        demonstrateValidationFailure();
+    }
+
+    private static void demonstrateValidationFailure() {
+        try {
+            new OfficePCBuilder()
+                    .setCPU("Intel Core i9-14900K")
+                    .setRAM("64GB DDR5")
+                    .setStorage("4TB NVMe SSD")
+                    .setPowerSupply("1000W Platinum")
+                    .build();
+        } catch (IllegalStateException e) {
+            System.out.println("Validation correctly rejected an over-budget office PC: " + e.getMessage());
         }
     }
 }
+
